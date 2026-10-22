@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>山中会計事務所 | 山中税理士事務所 - 信頼と実績で、あなたの財務をサポート。</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Serif JP, Cormorant Garamond, Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        headerPink: '#EAD6DC',
+                        headerPinkDark: '#DEC3CB',
+                        brandCrimson: '#C83E5B',
+                        gold: {
+                            light: '#DFC699',
+                            DEFAULT: '#B5945B',
+                            dark: '#8F713C',
+                            button: '#9E8256'
+                        },
+                        wood: {
+                            light: '#5A3E2B',
+                            DEFAULT: '#2B1B12',
+                            dark: '#180F0A'
+                        },
+                        ivory: '#FAF8F5',
+                        champagne: '#F3EFEA'
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif JP"', 'serif'],
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                        en: ['"Cormorant Garamond"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #2B1B12;
+            background-color: #FAF8F5;
+            overflow-x: hidden;
+        }
+        .font-serif-jp {
+            font-family: 'Noto Serif JP', serif;
+        }
+        .font-en {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* ゴールドグラデーションテキスト */
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #E8D2A6 0%, #C5A059 50%, #9A7836 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* ゴールドボタンのホバーエフェクト */
+        .btn-gold {
+            background: linear-gradient(135deg, #A88B5C 0%, #8E7246 100%);
+            box-shadow: 0 10px 25px -5px rgba(24, 15, 10, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-gold:hover {
+            background: linear-gradient(135deg, #B89B6C 0%, #9E8256 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -5px rgba(24, 15, 10, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+        }
+        /* ヒーローセクション背景 */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=2000&q=85');
+            background-size: cover;
+            background-position: center 25%;
+        }
+        /* テキストの視認性を高める上品なシャドウ */
+        .hero-text-shadow {
+            text-shadow: 0 2px 16px rgba(15, 10, 5, 0.75), 0 1px 4px rgba(0, 0, 0, 0.6);
+        }
+        /* カスタムスクロールバー */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059;
+            border-radius: 4px;
+        }
+        /* フェードインアニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gold selection:text-white">
+
+    <!-- ==========================================
+         ヒーローセクション（文字なし・クリア表示）
+    =========================================== -->
+    <section id="home" class="relative w-full min-h-[540px] lg:min-h-[700px] flex items-center justify-center overflow-hidden bg-wood-dark">
+        <!-- 背景画像レイヤー（文字・暗幕オーバーレイなし） -->
+        <div id="hero-bg-layer" class="absolute inset-0 hero-bg transition-transform duration-1000"></div>
+
+        <!-- お手元の画像を反映できる控えめなボタン（右下） -->
+        <div class="absolute bottom-4 right-4 z-20 flex items-center gap-2">
+            <label for="custom-hero-upload" class="cursor-pointer bg-black/50 hover:bg-black/75 backdrop-blur-md text-white/90 border border-white/25 px-3.5 py-2 rounded-full text-xs flex items-center gap-1.5 transition shadow-lg">
+                <i class="fa-solid fa-image text-gold-light"></i>
+                <span>トップ画像を変更</span>
+                <input id="custom-hero-upload" type="file" accept="image/*" class="hidden" onchange="handleHeroImageUpload(event)">
+            </label>
+            <button id="reset-hero-btn" onclick="resetHeroImage()" class="hidden bg-black/50 hover:bg-black/75 backdrop-blur-md text-white/90 border border-white/25 px-3 py-2 rounded-full text-xs transition shadow-lg">
+                元に戻す
+            </button>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         信頼の実績・ステータスバー
+    =========================================== -->
+    <section class="bg-wood text-white py-10 border-b border-gold/25 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-gold/20">
+                <div class="pt-4 sm:pt-0 sm:px-6 first:pt-0 first:pl-0 text-center">
+                    <p class="text-gold-light text-xs tracking-widest font-en uppercase mb-1">Retention Rate</p>
+                    <p class="font-serif-jp text-2xl sm:text-4xl font-semibold text-white">98.7<span class="text-base sm:text-xl text-gold-light ml-1">%</span></p>
+                    <p class="text-xs text-stone-300 mt-1">顧問契約継続率</p>
+                </div>
+                <div class="pt-4 sm:pt-0 sm:px-6 text-center">
+                    <p class="text-gold-light text-xs tracking-widest font-en uppercase mb-1">Track Record</p>
+                    <p class="font-serif-jp text-2xl sm:text-4xl font-semibold text-white">1,800<span class="text-base sm:text-xl text-gold-light ml-1">件+</span></p>
+                    <p class="text-xs text-stone-300 mt-1">累計税務・財務相談実績</p>
+                </div>
+                <div class="pt-4 sm:pt-0 sm:px-6 text-center">
+                    <p class="text-gold-light text-xs tracking-widest font-en uppercase mb-1">Financing Pass Rate</p>
+                    <p class="font-serif-jp text-2xl sm:text-4xl font-semibold text-white">99.2<span class="text-base sm:text-xl text-gold-light ml-1">%</span></p>
+                    <p class="text-xs text-stone-300 mt-1">クライアント満足度評価</p>
+                </div>
+                <div class="pt-4 sm:pt-0 sm:px-6 text-center">
+                    <p class="text-gold-light text-xs tracking-widest font-en uppercase mb-1">Private Lounge</p>
+                    <p class="font-serif-jp text-2xl sm:text-4xl font-semibold text-white">完全個室<span class="text-base sm:text-xl text-gold-light ml-1">対応</span></p>
+                    <p class="text-xs text-stone-300 mt-1">エグゼクティブラウンジ完備</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         コンセプト＆選ばれる理由（Philosophy）
+    =========================================== -->
+    <section class="py-20 lg:py-28 bg-ivory relative overflow-hidden">
+        <!-- 背景装飾 -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold/5 blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                <!-- 左カラム：テキスト -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-3">
+                        <span class="w-8 h-[1px] bg-gold"></span>
+                        <span class="font-en text-gold-dark tracking-[0.25em] text-sm uppercase font-semibold">Our Philosophy</span>
+                    </div>
+                    <h2 class="font-serif-jp text-2xl sm:text-4xl text-wood font-semibold leading-relaxed">
+                        単なる「記帳・申告」を超え、<br>
+                        未来を創る<span class="text-gold-dark">財務のパートナー</span>へ。
+                    </h2>
+                    <p class="text-stone-600 leading-loose text-sm sm:text-base">
+                        山中会計事務所（山中税理士事務所）は、経営者様や資産家様が抱える複雑な税務・財務の課題に対し、オーダーメイドの解決策をご提供するブティック型会計事務所です。
+                    </p>
+                    <p class="text-stone-600 leading-loose text-sm sm:text-base">
+                        過去の数字をまとめるだけの税務処理にとどまらず、最新の財務データ概要（Financial Overview）の可視化と戦略的なタックスコンサルティング（Tax Consulting）を通じて、貴社の持続的な成長と大切な資産の承継を力強くサポートいたします。
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                        <div class="bg-white p-5 rounded-xl border border-stone-200/80 shadow-sm flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-champagne flex items-center justify-center text-gold-dark shrink-0 mt-0.5">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif-jp font-semibold text-wood text-base mb-1">有資格者による専任担当制</h3>
+                                <p class="text-xs text-stone-500 leading-relaxed">経験豊富な税理士が初回相談から継続的な戦略立案まで一貫して担当いたします。</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-stone-200/80 shadow-sm flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-champagne flex items-center justify-center text-gold-dark shrink-0 mt-0.5">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif-jp font-semibold text-wood text-base mb-1">リアルタイム財務データ分析</h3>
+                                <p class="text-xs text-stone-500 leading-relaxed">クラウド会計と独自の財務分析レポートで、迅速な経営判断を後押しします。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右カラム：ビジュアルカード（画像の「Tax Consulting」「Financial Overview」をモチーフ） -->
+                <div class="lg:col-span-5">
+                    <div class="relative">
+                        <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1000&q=80" alt="税務・財務コンサルティング風景" class="w-full h-[420px] object-cover">
+                        </div>
+                        <!-- オーバーレイバッジ：トップ画像の手前にある2冊のファイルを表現 -->
+                        <div class=" -mt-14 mx-4 sm:mx-6 relative z-10 grid grid-cols-2 gap-3">
+                            <div class="bg-wood text-white p-4 rounded-xl shadow-xl border border-gold/40">
+                                <p class="font-en text-xs text-gold-light tracking-widest uppercase">Report 01</p>
+                                <p class="font-serif-jp font-semibold text-sm sm:text-base mt-0.5">Tax Consulting</p>
+                                <p class="text-xs text-stone-300 mt-1">税務相談・節税シミュレーション</p>
+                            </div>
+                            <div class="bg-white text-wood p-4 rounded-xl shadow-xl border border-stone-200">
+                                <p class="font-en text-xs text-gold-dark tracking-widest uppercase">Report 02</p>
+                                <p class="font-serif-jp font-semibold text-sm sm:text-base mt-0.5">Financial Overview</p>
+                                <p class="text-xs text-stone-500 mt-1">財務データ概要・未来予測</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         メニュー・サービス一覧（Menu & Services）
+    =========================================== -->
+    <section id="menu" class="py-20 lg:py-28 bg-champagne/70 border-y border-stone-200/80">
+        <div id="service" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- セクション見出し -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="font-en text-gold-dark tracking-[0.25em] text-sm uppercase font-semibold block mb-2">Menu & Services</span>
+                <h2 class="font-serif-jp text-3xl sm:text-4xl text-wood font-semibold mb-4">提供メニュー・サービス一覧</h2>
+                <div class="w-16 h-[2px] bg-gold mx-auto mb-6"></div>
+                <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+                    法人経営から個人の資産管理・相続対策まで、お客様のフェーズに合わせた<br class="hidden sm:inline">最高水準のリーガル＆フィナンシャルサービスをご提供いたします。
+                </p>
+            </div>
+
+            <!-- カテゴリー切替タブ -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12">
+                <button onclick="filterServices('all')" class="service-tab active px-6 py-2.5 rounded-full text-sm font-medium transition bg-wood text-white shadow-md" data-category="all">
+                    すべて表示
+                </button>
+                <button onclick="filterServices('corporate')" class="service-tab px-6 py-2.5 rounded-full text-sm font-medium transition bg-white text-wood hover:bg-stone-100 border border-stone-200" data-category="corporate">
+                    法人税務・財務戦略
+                </button>
+                <button onclick="filterServices('wealth')" class="service-tab px-6 py-2.5 rounded-full text-sm font-medium transition bg-white text-wood hover:bg-stone-100 border border-stone-200" data-category="wealth">
+                    資産税・相続・事業承継
+                </button>
+                <button onclick="filterServices('special')" class="service-tab px-6 py-2.5 rounded-full text-sm font-medium transition bg-white text-wood hover:bg-stone-100 border border-stone-200" data-category="special">
+                    専門特化・国際税務
+                </button>
+            </div>
+
+            <!-- サービスカードグリッド -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- サービス 1 -->
+                <div class="service-card bg-white rounded-2xl p-8 border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="corporate">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-champagne flex items-center justify-center text-gold-dark group-hover:bg-wood group-hover:text-gold-light transition-colors duration-300">
+                                <i class="fa-solid fa-scale-balanced text-2xl"></i>
+                            </div>
+                            <span class="font-en text-xs tracking-widest uppercase px-3 py-1 rounded-full bg-stone-100 text-stone-600">Tax Consulting</span>
+                        </div>
+                        <h3 class="font-serif-jp text-xl font-semibold text-wood mb-3">法人税務顧問・決算申告</h3>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            月次巡回監査や書面添付制度の活用により、税務署からの信頼性が高い高品質な決算書を作成。決算前の緻密なタックスプランニングで適正な節税を実現します。
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                        <span class="text-xs text-stone-500">月次面談・四半期予測対応</span>
+                        <button onclick="openServiceDetail(0)" class="text-gold-dark hover:text-wood text-sm font-medium flex items-center gap-1.5 transition">
+                            <span>詳細を見る</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- サービス 2 -->
+                <div class="service-card bg-white rounded-2xl p-8 border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="corporate">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-champagne flex items-center justify-center text-gold-dark group-hover:bg-wood group-hover:text-gold-light transition-colors duration-300">
+                                <i class="fa-solid fa-chart-pie text-2xl"></i>
+                            </div>
+                            <span class="font-en text-xs tracking-widest uppercase px-3 py-1 rounded-full bg-stone-100 text-stone-600">Financial Overview</span>
+                        </div>
+                        <h3 class="font-serif-jp text-xl font-semibold text-wood mb-3">財務データ概要・経営分析</h3>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            キャッシュフロー計算書や部門別採算分析を視覚的なレポートでご提示。資金繰り改善、銀行融資対策、中長期の経営計画策定まで社外CFOとして伴走します。
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                        <span class="text-xs text-stone-500">独自財務レポート毎月発行</span>
+                        <button onclick="openServiceDetail(1)" class="text-gold-dark hover:text-wood text-sm font-medium flex items-center gap-1.5 transition">
+                            <span>詳細を見る</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- サービス 3 -->
+                <div class="service-card bg-white rounded-2xl p-8 border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="wealth">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-champagne flex items-center justify-center text-gold-dark group-hover:bg-wood group-hover:text-gold-light transition-colors duration-300">
+                                <i class="fa-solid fa-landmark text-2xl"></i>
+                            </div>
+                            <span class="font-en text-xs tracking-widest uppercase px-3 py-1 rounded-full bg-stone-100 text-stone-600">Inheritance & Wealth</span>
+                        </div>
+                        <h3 class="font-serif-jp text-xl font-semibold text-wood mb-3">相続税申告・生前対策</h3>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            不動産評価の適正化や特例制度の最大限の活用により、円満かつ納得感のある相続をサポート。生前の贈与シミュレーションや遺言書作成支援も承ります。
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                        <span class="text-xs text-stone-500">初回財産診断シミュレート付</span>
+                        <button onclick="openServiceDetail(2)" class="text-gold-dark hover:text-wood text-sm font-medium flex items-center gap-1.5 transition">
+                            <span>詳細を見る</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- サービス 4 -->
+                <div class="service-card bg-white rounded-2xl p-8 border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="wealth">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-champagne flex items-center justify-center text-gold-dark group-hover:bg-wood group-hover:text-gold-light transition-colors duration-300">
+                                <i class="fa-solid fa-handshake text-2xl"></i>
+                            </div>
+                            <span class="font-en text-xs tracking-widest uppercase px-3 py-1 rounded-full bg-stone-100 text-stone-600">Succession & M&A</span>
+                        </div>
+                        <h3 class="font-serif-jp text-xl font-semibold text-wood mb-3">事業承継・M&Aアドバイザリー</h3>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            自社株評価の引き下げ対策、事業承継税制（特例措置）の活用、ホールディングス化、第三者へのM&A・財務デューデリジェンスまで総合的に支援します。
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                        <span class="text-xs text-stone-500">株価算定・承継計画策定</span>
+                        <button onclick="openServiceDetail(3)" class="text-gold-dark hover:text-wood text-sm font-medium flex items-center gap-1.5 transition">
+                            <span>詳細を見る</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- サービス 5 -->
+                <div class="service-card bg-white rounded-2xl p-8 border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="special">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-champagne flex items-center justify-center text-gold-dark group-hover:bg-wood group-hover:text-gold-light transition-colors duration-300">
+                                <i class="fa-solid fa-building-shield text-2xl"></i>
+                            </div>
+                            <span class="font-en text-xs tracking-widest uppercase px-3 py-1 rounded-full bg-stone-100 text-stone-600">Private Company</span>
+                        </div>
+                        <h3 class="font-serif-jp text-xl font-semibold text-wood mb-3">資産管理会社・医療法人設立</h3>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            不動産オーナー様・富裕層の方のプライベートカンパニー設立や、クリニックの医療法人化シミュレーション、設立後の運営までワンストップで対応いたします。
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                        <span class="text-xs text-stone-500">司法書士・社労士連携対応</span>
+                        <button onclick="openServiceDetail(4)" class="text-gold-dark hover:text-wood text-sm font-medium flex items-center gap-1.5 transition">
+                            <span>詳細を見る</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- サービス 6 -->
+                <div class="service-card bg-white rounded-2xl p-8 border border-stone-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group" data-category="special">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-14 h-14 rounded-2xl bg-champagne flex items-center justify-center text-gold-dark group-hover:bg-wood group-hover:text-gold-light transition-colors duration-300">
+                                <i class="fa-solid fa-shield-halved text-2xl"></i>
+                            </div>
+                            <span class="font-en text-xs tracking-widest uppercase px-3 py-1 rounded-full bg-stone-100 text-stone-600">Tax Audit Defense</span>
+                        </div>
+                        <h3 class="font-serif-jp text-xl font-semibold text-wood mb-3">税務調査立会い・セカンドオピニオン</h3>
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            突然の税務調査にも経験豊富な税理士が徹底サポート。また、現在の顧問税理士を変えずに別の視点からアドバイスを受けるセカンドオピニオン契約も好評です。
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-stone-100 flex items-center justify-between">
+                        <span class="text-xs text-stone-500">秘密厳守・スピード対応</span>
+                        <button onclick="openServiceDetail(5)" class="text-gold-dark hover:text-wood text-sm font-medium flex items-center gap-1.5 transition">
+                            <span>詳細を見る</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         お店案内 / 事務所案内（Office & Lounge）
+    =========================================== -->
+    <section id="office" class="py-20 lg:py-28 bg-wood text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="font-en text-gold-light tracking-[0.25em] text-sm uppercase font-semibold block mb-2">Office & Executive Lounge</span>
+                <h2 class="font-serif-jp text-3xl sm:text-4xl text-white font-semibold mb-4">お店案内（事務所・ラウンジ紹介）</h2>
+                <div class="w-16 h-[2px] bg-gold mx-auto mb-6"></div>
+                <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+                    大切な財務や資産のお話を、心からリラックスしてご相談いただけるよう、<br class="hidden sm:inline">ホテルのエグゼクティブラウンジを思わせる完全個室の応接空間をご用意しております。
+                </p>
+            </div>
+
+            <!-- ラウンジ＆代表挨拶の2カラム -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
+                <!-- 左：空間紹介 -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="relative rounded-2xl overflow-hidden border border-gold/30 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" alt="エグゼクティブラウンジ応接室" class="w-full h-80 sm:h-96 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-wood-dark/90 via-transparent to-transparent flex items-end p-6">
+                            <div>
+                                <span class="text-xs font-en tracking-widest text-gold-light uppercase">Private Consultation Room</span>
+                                <h3 class="font-serif-jp text-xl font-medium text-white mt-1">高層階の眺望と静寂を備えたプライベートルーム</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4 text-center">
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                            <i class="fa-solid fa-lock text-gold-light text-lg mb-2"></i>
+                            <p class="text-xs sm:text-sm font-medium">防音・完全個室</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                            <i class="fa-solid fa-mug-hot text-gold-light text-lg mb-2"></i>
+                            <p class="text-xs sm:text-sm font-medium">厳選茶菓のおもてなし</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                            <i class="fa-solid fa-video text-gold-light text-lg mb-2"></i>
+                            <p class="text-xs sm:text-sm font-medium">オンライン面談完備</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右：代表税理士ご挨拶＆事務所概要 -->
+                <div class="lg:col-span-6 bg-white/5 backdrop-blur-sm border border-gold/30 rounded-2xl p-6 sm:p-10 space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-5 pb-6 border-b border-white/15">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" alt="代表税理士 山中" class="w-20 h-20 rounded-full object-cover border-2 border-gold shrink-0">
+                        <div>
+                            <p class="text-xs text-gold-light tracking-widest font-en uppercase">Representative Certified Public Tax Accountant</p>
+                            <h3 class="font-serif-jp text-2xl font-medium text-white mt-1">代表税理士　山中 凛 <span class="text-sm font-sans text-stone-300 font-normal ml-2">Rin Yamanaka</span></h3>
+                            <p class="text-xs text-stone-300 mt-1">東京税理士会所属 / 経営革新等支援機関認定</p>
+                        </div>
+                    </div>
+
+                    <p class="text-stone-200 text-sm leading-loose font-serif-jp">
+                        「数字の向こう側にある、お客様の人生と経営のビジョンに寄り添いたい」——その想いから山中会計事務所を設立いたしました。堅苦しく敷居が高いと思われがちな税理士事務所のイメージを一新し、どんな些細なご不安も気兼ねなくお話しいただける温かな空間と、精緻な財務分析でお応えいたします。
+                    </p>
+
+                    <!-- 事務所情報テーブル -->
+                    <div class="pt-2 space-y-3 text-sm">
+                        <div class="flex flex-col sm:flex-row sm:items-center py-2 border-b border-white/10">
+                            <span class="w-32 text-gold-light font-medium shrink-0">事務所名</span>
+                            <span class="text-white">山中会計事務所 / 山中税理士事務所</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center py-2 border-b border-white/10">
+                            <span class="w-32 text-gold-light font-medium shrink-0">お電話（無料相談）</span>
+                            <a href="tel:03-3220-4570" class="text-white font-semibold hover:text-gold-light transition">03-3220-4570</a>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center py-2 border-b border-white/10">
+                            <span class="w-32 text-gold-light font-medium shrink-0">所在地</span>
+                            <span class="text-stone-200">〒100-0005 東京都千代田区丸の内1丁目 エグゼクティブタワー 18F</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center py-2">
+                            <span class="w-32 text-gold-light font-medium shrink-0">営業時間</span>
+                            <span class="text-stone-200">平日 9:00〜19:00（土日祝・夜間も事前予約にて対応可能）</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         料金プラン＆顧問料シミュレーター（Pricing）
+    =========================================== -->
+    <section id="pricing" class="py-20 lg:py-28 bg-ivory">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="font-en text-gold-dark tracking-[0.25em] text-sm uppercase font-semibold block mb-2">Fee Structure</span>
+                <h2 class="font-serif-jp text-3xl sm:text-4xl text-wood font-semibold mb-4">料金のご案内</h2>
+                <div class="w-16 h-[2px] bg-gold mx-auto mb-6"></div>
+                <p class="text-stone-600 text-sm sm:text-base leading-relaxed">
+                    明瞭かつ納得感のある料金体系を採用しております。<br class="hidden sm:inline">ご契約前に必ず詳細なお見積書をご提示し、追加費用が発生する場合は事前にご説明いたします。
+                </p>
+            </div>
+
+            <!-- 3つの代表プラン -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                <!-- プラン 1 -->
+                <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-en tracking-widest uppercase text-gold-dark font-semibold">Standard Plan</span>
+                        <h3 class="font-serif-jp text-2xl font-semibold text-wood mt-1 mb-2">個人事業・スタートアップ顧問</h3>
+                        <p class="text-xs text-stone-500 mb-6">創業期〜年商3,000万円未満の法人・個人事業主様向け</p>
+                        <div class="py-4 border-y border-stone-100 mb-6">
+                            <span class="text-xs text-stone-500 block">月額顧問料（税込）</span>
+                            <p class="font-serif-jp text-3xl font-bold text-wood mt-1">33,000<span class="text-base font-normal text-stone-600">円〜</span></p>
+                            <span class="text-xs text-stone-400 mt-1 block">※決算申告料：年額 165,000円〜</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-stone-600 mb-8">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>月次試算表の作成・クラウド会計導入支援</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>四半期ごとの業績レビュー面談</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>チャット・お電話での随時税務相談</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>決算予測・納税額シミュレーション</span></li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('個人事業・スタートアップ顧問について')" class="w-full py-3.5 rounded-xl border border-wood text-wood hover:bg-wood hover:text-white font-medium text-sm transition">
+                        このプランで無料相談する
+                    </button>
+                </div>
+
+                <!-- プラン 2（一番人気） -->
+                <div class="bg-wood text-white rounded-2xl p-8 border-2 border-gold shadow-2xl relative transform lg:-translate-y-3 flex flex-col justify-between">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-gold-dark via-gold to-gold-dark text-white text-xs font-medium px-4 py-1 rounded-full shadow">
+                        最も選ばれているプラン
+                    </div>
+                    <div>
+                        <span class="text-xs font-en tracking-widest uppercase text-gold-light font-semibold">Executive Corporate Plan</span>
+                        <h3 class="font-serif-jp text-2xl font-semibold text-white mt-1 mb-2">エグゼクティブ法人財務顧問</h3>
+                        <p class="text-xs text-stone-300 mb-6">成長企業・安定法人の税務戦略＆財務データ分析フルサポート</p>
+                        <div class="py-4 border-y border-white/15 mb-6">
+                            <span class="text-xs text-gold-light block">月額顧問料（税込）</span>
+                            <p class="font-serif-jp text-3xl font-bold text-white mt-1">55,000<span class="text-base font-normal text-stone-300">円〜</span></p>
+                            <span class="text-xs text-stone-400 mt-1 block">※決算申告料：月額顧問料の4〜5ヶ月分目安</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-stone-200 mb-8">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-light"></i><span>専任税理士による毎月の対面/オンライン面談</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-light"></i><span>財務データ概要（Financial Overview）月次レポート</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-light"></i><span>決算3ヶ月前からの戦略的節税・タックスプランニング</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-light"></i><span>金融機関融資サポート・経営計画策定支援</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold-light"></i><span>エグゼクティブラウンジ優先予約</span></li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('エグゼクティブ法人財務顧問について')" class="w-full py-3.5 rounded-xl btn-gold text-white font-medium text-sm">
+                        このプランで無料相談する
+                    </button>
+                </div>
+
+                <!-- プラン 3 -->
+                <div class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-en tracking-widest uppercase text-gold-dark font-semibold">Wealth & Inheritance</span>
+                        <h3 class="font-serif-jp text-2xl font-semibold text-wood mt-1 mb-2">相続税・資産承継プラン</h3>
+                        <p class="text-xs text-stone-500 mb-6">不動産オーナー・資産家様の生前対策および相続税申告</p>
+                        <div class="py-4 border-y border-stone-100 mb-6">
+                            <span class="text-xs text-stone-500 block">相続税申告報酬（税込）</span>
+                            <p class="font-serif-jp text-2xl font-bold text-wood mt-1">遺産総額の 0.5%〜1.0%</p>
+                            <span class="text-xs text-stone-400 mt-1 block">※生前シミュレーション：110,000円〜</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-stone-600 mb-8">
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>現状の財産目録作成＆一次・二次相続税試算</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>土地・非上場株式の精緻な評価減検討</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>書面添付制度を活用した税務調査リスク低減</span></li>
+                            <li class="flex items-center gap-2.5"><i class="fa-solid fa-check text-gold"></i><span>遺産分割協議書の作成および二次相続対策提案</span></li>
+                        </ul>
+                    </div>
+                    <button onclick="openBookingModal('相続税・資産承継プランについて')" class="w-full py-3.5 rounded-xl border border-wood text-wood hover:bg-wood hover:text-white font-medium text-sm transition">
+                        このプランで無料相談する
+                    </button>
+                </div>
+            </div>
+
+            <!-- インタラクティブ顧問料シミュレーター -->
+            <div class="bg-white rounded-2xl p-6 sm:p-10 border border-gold/40 shadow-lg max-w-4xl mx-auto">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-full bg-wood text-gold-light flex items-center justify-center">
+                        <i class="fa-solid fa-calculator"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif-jp text-xl font-semibold text-wood">30秒でわかる顧問料・概算シミュレーター</h3>
+                        <p class="text-xs text-stone-500">貴社の状況を選択すると、目安となる月額費用を自動算出します。</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div>
+                        <label class="block text-xs font-medium text-stone-700 mb-2">1. 事業形態</label>
+                        <select id="sim-type" onchange="calculateEstimate()" class="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                            <option value="corp">法人（株式会社・合同会社・医療法人）</option>
+                            <option value="sole">個人事業主・フリーランス</option>
+                            <option value="asset">資産管理会社（不動産・株式保有）</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-stone-700 mb-2">2. 年間売上高規模</label>
+                        <select id="sim-sales" onchange="calculateEstimate()" class="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                            <option value="1">3,000万円未満</option>
+                            <option value="2" selected>3,000万円〜1億円未満</option>
+                            <option value="3">1億円〜5億円未満</option>
+                            <option value="4">5億円以上</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-stone-700 mb-2">3. ご訪問・面談頻度</label>
+                        <select id="sim-freq" onchange="calculateEstimate()" class="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                            <option value="monthly" selected>毎月面談（財務レポート付）</option>
+                            <option value="bimonthly">隔月・四半期面談</option>
+                            <option value="annual">年1回（決算時中心）</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bg-champagne/80 rounded-xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-gold/30">
+                    <div>
+                        <span class="text-xs text-stone-600 block">シミュレーション結果（税込目安）</span>
+                        <div class="flex items-baseline gap-4 mt-1">
+                            <p class="text-sm text-wood">月額顧問料：<strong id="sim-monthly-result" class="font-serif-jp text-2xl sm:text-3xl text-brandCrimson">55,000</strong> 円</p>
+                            <p class="text-xs sm:text-sm text-stone-600">（決算申告料目安：<span id="sim-annual-result" class="font-semibold">220,000</span>円）</p>
+                        </div>
+                    </div>
+                    <button onclick="openBookingModalWithSim()" class="px-6 py-3 rounded-full bg-wood text-gold-light hover:bg-wood-light text-xs sm:text-sm font-medium transition shrink-0">
+                        この条件で詳しく相談する
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         お問い合わせ・無料相談予約セクション（Contact）
+    =========================================== -->
+    <section id="contact" class="py-20 lg:py-28 bg-champagne border-t border-stone-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl shadow-xl border border-stone-200/80 overflow-hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <!-- 左：お電話＆ご案内パネル -->
+                    <div class="lg:col-span-5 bg-wood text-white p-8 sm:p-10 flex flex-col justify-between">
+                        <div>
+                            <span class="font-en text-gold-light tracking-[0.2em] text-xs uppercase block mb-2">Free Consultation</span>
+                            <h2 class="font-serif-jp text-2xl sm:text-3xl font-medium mb-4">無料相談・お問い合わせ</h2>
+                            <p class="text-stone-300 text-xs sm:text-sm leading-relaxed mb-8">
+                                初回のご相談（60分）は無料で承っております。当事務所のエグゼクティブラウンジでの対面相談、またはオンライン（Zoom等）にて代表税理士が直接お話を伺います。
+                            </p>
+
+                            <div class="bg-white/10 border border-gold/30 rounded-2xl p-5 mb-6">
+                                <p class="text-xs text-gold-light mb-1">お電話での無料相談予約</p>
+                                <a href="tel:03-3220-4570" class="text-2xl sm:text-3xl font-sans font-bold text-white hover:text-gold-light transition block">
+                                    <i class="fa-solid fa-phone text-lg mr-2 text-gold-light"></i>03-3220-4570
+                                </a>
+                                <p class="text-[11px] text-stone-300 mt-1">受付時間：平日 9:00〜19:00（土日祝も予約可）</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-stone-300 pt-6 border-t border-white/15">
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-shield-check text-gold-light"></i>税理士法に基づく厳格な守秘義務を遵守いたします</p>
+                            <p class="flex items-center gap-2"><i class="fa-solid fa-clock text-gold-light"></i>Webからのご予約は24時間受け付けております</p>
+                        </div>
+                    </div>
+
+                    <!-- 右：お問い合わせ・予約フォーム -->
+                    <div class="lg:col-span-7 p-8 sm:p-10">
+                        <form id="contact-form" onsubmit="submitContactForm(event)" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-700 mb-1.5">お名前 <span class="text-brandCrimson">*</span></label>
+                                    <input type="text" id="form-name" required placeholder="山田 太郎" class="w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-700 mb-1.5">貴社名・屋号（任意）</label>
+                                    <input type="text" id="form-company" placeholder="株式会社〇〇" class="w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm focus:outline-none focus:border-gold">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-700 mb-1.5">メールアドレス <span class="text-brandCrimson">*</span></label>
+                                    <input type="email" id="form-email" required placeholder="info@example.com" class="w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-700 mb-1.5">お電話番号 <span class="text-brandCrimson">*</span></label>
+                                    <input type="tel" id="form-tel" required placeholder="090-0000-0000" class="w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm focus:outline-none focus:border-gold">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-700 mb-1.5">ご相談テーマ</label>
+                                    <select id="form-topic" class="w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm focus:outline-none focus:border-gold">
+                                        <option value="税務顧問・決算申告（Tax Consulting）">税務顧問・決算申告（Tax Consulting）</option>
+                                        <option value="財務分析・経営相談（Financial Overview）">財務分析・経営相談（Financial Overview）</option>
+                                        <option value="相続税・生前対策・資産税">相続税・生前対策・資産税</option>
+                                        <option value="事業承継・M&A・法人設立">事業承継・M&A・法人設立</option>
+                                        <option value="その他のお問い合わせ">その他のお問い合わせ</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-stone-700 mb-1.5">ご希望の面談方法</label>
+                                    <select id="form-method" class="w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm focus:outline-none focus:border-gold">
+                                        <option value="当事務所ラウンジにて対面相談">当事務所ラウンジにて対面相談</option>
+                                        <option value="オンライン面談（Zoom等）">オンライン面談（Zoom等）</option>
+                                        <option value="まずはお電話でのヒアリング">まずはお電話でのヒアリング</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-medium text-stone-700 mb-1.5">ご相談内容・ご希望日時など</label>
+                                <textarea id="form-message" rows="4" placeholder="現在の状況や、ご希望の面談日時（例：来週火曜日の午後など）をご記入ください。" class="w-full rounded-xl border border-stone-300 px-4 py-2.5 text-sm focus:outline-none focus:border-gold"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-full btn-gold text-white font-medium text-base tracking-wider shadow-lg">
+                                無料相談を予約・送信する
+                            </button>
+                        </form>
+
+                        <!-- 送信完了メッセージ（初期非表示） -->
+                        <div id="form-success" class="hidden text-center py-12 space-y-4">
+                            <div class="w-16 h-16 rounded-full bg-green-100 text-green-700 flex items-center justify-center mx-auto text-2xl">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <h3 class="font-serif-jp text-2xl font-semibold text-wood">無料相談のご予約を承りました</h3>
+                            <p class="text-sm text-stone-600 leading-relaxed max-w-md mx-auto">
+                                お問い合わせいただき誠にありがとうございます。担当税理士より、1営業日以内にご連絡を差し上げます。お急ぎの場合は <strong class="text-wood">03-3220-4570</strong> までお電話ください。
+                            </p>
+                            <button onclick="resetContactForm()" class="mt-4 px-6 py-2 rounded-full border border-stone-300 text-xs text-stone-600 hover:bg-stone-100">
+                                フォームに戻る
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         フッター
+    =========================================== -->
+    <footer class="bg-wood-dark text-stone-400 py-14 border-t border-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 pb-10 border-b border-white/10">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full border border-gold/50 flex items-center justify-center text-gold-light font-en text-xl font-bold">
+                        Y
+                    </div>
+                    <div>
+                        <p class="font-serif-jp text-white text-lg font-medium tracking-wider">山中会計事務所 / 山中税理士事務所</p>
+                        <p class="text-xs text-stone-400">信頼と実績で、あなたの財務をサポート。</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6 text-xs sm:text-sm text-stone-300">
+                    <a href="#home" class="hover:text-gold-light transition">ホーム</a>
+                    <a href="#menu" class="hover:text-gold-light transition">メニュー</a>
+                    <a href="#office" class="hover:text-gold-light transition">お店案内</a>
+                    <a href="#service" class="hover:text-gold-light transition">サービス</a>
+                    <a href="#pricing" class="hover:text-gold-light transition">料金</a>
+                    <a href="#contact" class="hover:text-gold-light transition">お問い合わせ</a>
+                </div>
+            </div>
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+                <p>&copy; 2026 山中会計事務所 (Yamanaka Accounting & Tax Office). All Rights Reserved.</p>
+                <p class="text-stone-500">無料相談ダイヤル：03-3220-4570</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         モーダル：サービス詳細表示
+    =========================================== -->
+    <div id="service-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-gold/30 relative animate-fade-in">
+            <button onclick="closeServiceModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-600">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <span id="modal-en-tag" class="font-en text-xs tracking-widest uppercase text-gold-dark font-semibold">Service Detail</span>
+            <h3 id="modal-title" class="font-serif-jp text-2xl font-semibold text-wood mt-1 mb-4">サービス名</h3>
+            <p id="modal-desc" class="text-sm text-stone-600 leading-relaxed mb-6"></p>
+            <div class="bg-champagne/70 rounded-xl p-4 mb-6">
+                <p class="text-xs font-semibold text-wood mb-2">主なサポート内容：</p>
+                <ul id="modal-list" class="text-xs text-stone-600 space-y-1.5 list-disc list-inside"></ul>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeServiceModal()" class="px-5 py-2.5 rounded-full border border-stone-300 text-xs font-medium text-stone-600 hover:bg-stone-100">閉じる</button>
+                <button onclick="bookFromServiceModal()" class="px-6 py-2.5 rounded-full btn-gold text-white text-xs font-medium">このサービスについて無料相談</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         JavaScript ロジック
+    =========================================== -->
+    <script>
+        // モバイルメニューの開閉（要素が存在する場合のみ実行）
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+
+        // お手元の画像をヒーローセクションに読み込む機能
+        function handleHeroImageUpload(event) {
+            const file = event.target && event.target.files ? event.target.files[0] : null;
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                const bgLayer = document.getElementById('hero-bg-layer');
+                if (bgLayer) {
+                    bgLayer.style.backgroundImage = `url('${imageUrl}')`;
+                    bgLayer.style.backgroundPosition = 'center center';
+                }
+                const resetBtn = document.getElementById('reset-hero-btn');
+                if (resetBtn) resetBtn.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 初期状態に戻す
+        function resetHeroImage() {
+            const bgLayer = document.getElementById('hero-bg-layer');
+            if (bgLayer) {
+                bgLayer.style.backgroundImage = '';
+                bgLayer.style.backgroundPosition = '';
+            }
+            const uploadInput = document.getElementById('custom-hero-upload');
+            if (uploadInput) uploadInput.value = '';
+            const resetBtn = document.getElementById('reset-hero-btn');
+            if (resetBtn) resetBtn.classList.add('hidden');
+        }
+
+        // サービスカテゴリーフィルター
+        function filterServices(category) {
+            document.querySelectorAll('.service-tab').forEach(tab => {
+                if (tab.dataset.category === category) {
+                    tab.className = 'service-tab active px-6 py-2.5 rounded-full text-sm font-medium transition bg-wood text-white shadow-md';
+                } else {
+                    tab.className = 'service-tab px-6 py-2.5 rounded-full text-sm font-medium transition bg-white text-wood hover:bg-stone-100 border border-stone-200';
+                }
+            });
+
+            document.querySelectorAll('.service-card').forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // サービス詳細モーダルデータ
+        const serviceDetails = [
+            {
+                en: 'Tax Consulting',
+                title: '法人税務顧問・決算申告',
+                desc: '貴社の専任パートナーとして、月次の試算表作成から決算対策・税務申告まで一貫してサポートいたします。書面添付制度を積極的に採用し、税務署からの信頼度を高めます。',
+                items: ['月次巡回監査・試算表の解説', '決算3ヶ月前からの納税予測・節税提案', '法人税・消費税・地方税の確定申告書作成', 'インボイス制度・電子帳簿保存法への完全対応']
+            },
+            {
+                en: 'Financial Overview',
+                title: '財務データ概要・経営分析',
+                desc: 'トップページの「Financial Overview」ファイルにある通り、難解な会計数値を経営者様が直感的に把握できるグラフ・指標へ変換し、次の一手を共に考えます。',
+                items: ['月次キャッシュフロー分析レポートの作成', '損益分岐点・部門別収益性の可視化', '金融機関からの資金調達・事業計画書作成サポート', '予算実績管理（予実管理）体制の構築']
+            },
+            {
+                en: 'Inheritance & Wealth',
+                title: '相続税申告・生前対策',
+                desc: '大切なご家族へ円満に資産を引き継ぐため、生前の現状分析から相続発生後の申告手続きまで、資産税に精通した税理士が丁寧に対応いたします。',
+                items: ['相続財産目録の作成・相続税額シミュレーション', '小規模宅地等の特例・配偶者控除の最大活用', '生前贈与・家族信託・遺言書作成のサポート', '不動産鑑定士・司法書士と連携したワンストップ対応']
+            },
+            {
+                en: 'Succession & M&A',
+                title: '事業承継・M&Aアドバイザリー',
+                desc: '後継者へのスムーズなバトンタッチや、M&Aによる企業の成長・イグジットを財務・税務の両面から支援いたします。',
+                items: ['自社株（非上場株式）の評価算定・株価対策', '事業承継税制（特例承継計画）の申請・活用支援', '財務デューデリジェンス（DD）・企業価値評価', '持株会社（ホールディングス）化のスキーム構築']
+            },
+            {
+                en: 'Private Company',
+                title: '資産管理会社・医療法人設立',
+                desc: '個人の所得税率と法人税率の差を活用した資産管理会社の設立や、クリニック・歯科医院の医療法人成りシミュレーションを行います。',
+                items: ['法人化による節税効果・手残り資金シミュレーション', '設立登記・税務署等への届出ワンストップ手配', '役員報酬の最適設計・規程類整備', '不動産・有価証券の法人移転プランニング']
+            },
+            {
+                en: 'Tax Audit Defense',
+                title: '税務調査立会い・セカンドオピニオン',
+                desc: '税務調査の事前準備から当日の立会い、税務署との折衝まで納税者様の正当な権利を守り抜きます。また現在の顧問税理士を変えずにご相談いただけるセカンドオピニオンも承ります。',
+                items: ['税務調査前の想定問答・帳簿チェック', '調査当日の税理士立会い・調査官との専門的折衝', 'セカンドオピニオンによる節税・財務の第三者診断', '修正申告・更正の請求手続きサポート']
+            }
+        ];
+
+        let currentModalServiceTitle = '';
+        function openServiceDetail(index) {
+            const data = serviceDetails[index];
+            currentModalServiceTitle = data.title;
+            document.getElementById('modal-en-tag').textContent = data.en;
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-desc').textContent = data.desc;
+            const listEl = document.getElementById('modal-list');
+            listEl.innerHTML = data.items.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('service-modal').classList.remove('hidden');
+        }
+
+        function closeServiceModal() {
+            document.getElementById('service-modal').classList.add('hidden');
+        }
+
+        function bookFromServiceModal() {
+            closeServiceModal();
+            openBookingModal(currentModalServiceTitle + 'のご相談');
+        }
+
+        // 顧問料シミュレーター計算ロジック
+        function calculateEstimate() {
+            const type = document.getElementById('sim-type').value;
+            const sales = parseInt(document.getElementById('sim-sales').value, 10);
+            const freq = document.getElementById('sim-freq').value;
+
+            let baseMonthly = 33000;
+            if (type === 'corp') baseMonthly = 38500;
+            if (type === 'sole') baseMonthly = 27500;
+            if (type === 'asset') baseMonthly = 33000;
+
+            const salesMultiplier = [1, 1.0, 1.4, 1.85, 2.5][sales];
+            let freqMultiplier = 1.0;
+            if (freq === 'bimonthly') freqMultiplier = 0.8;
+            if (freq === 'annual') freqMultiplier = 0.6;
+
+            const monthly = Math.round((baseMonthly * salesMultiplier * freqMultiplier) / 1100) * 1100;
+            const annual = monthly * 4;
+
+            document.getElementById('sim-monthly-result').textContent = monthly.toLocaleString();
+            document.getElementById('sim-annual-result').textContent = annual.toLocaleString();
+        }
+
+        // 無料相談フォームへのスクロール＆初期値セット
+        function openBookingModal(prefillText = '') {
+            const contactSection = document.getElementById('contact');
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+            if (prefillText) {
+                const msgEl = document.getElementById('form-message');
+                msgEl.value = `【ご希望内容：${prefillText}】\n`;
+                setTimeout(() => msgEl.focus(), 600);
+            } else {
+                setTimeout(() => document.getElementById('form-name').focus(), 600);
+            }
+        }
+
+        function openBookingModalWithSim() {
+            const monthly = document.getElementById('sim-monthly-result').textContent;
+            openBookingModal(`料金シミュレーター結果（月額目安 ${monthly}円）に基づくご相談`);
+        }
+
+        // フォーム送信処理
+        function submitContactForm(event) {
+            event.preventDefault();
+            document.getElementById('contact-form').classList.add('hidden');
+            document.getElementById('form-success').classList.remove('hidden');
+        }
+
+        function resetContactForm() {
+            document.getElementById('contact-form').reset();
+            document.getElementById('contact-form').classList.remove('hidden');
+            document.getElementById('form-success').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
